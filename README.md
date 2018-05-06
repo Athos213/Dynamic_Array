@@ -1,6 +1,9 @@
 # Integer/String Dynamic Array Implementation
 **Author:** Stan Lyakhov
 
+## Acknowledgments
+ - [Andrew Quach](https://github.com/Aqcurate/) for inspiration and makefile assistance.
+
 ## Dynamic Array Implementation
 In this project, I attempt to create a resizable structure similar to java's ArrayList that would support both integer and string entries. 
 The dynamic array uses a union and an enumeration to handle both types of input:
@@ -22,7 +25,7 @@ switch (type) {
     case STRING: el->string = strdup((char*)value); break;
 }
 ```
-The resizing of the list is done by creating another list with a larger size, copying over the values from the old list to the new list, and swapping the pointers to the element arrays between the two lists. The new list is alway double the size of the previous one.
+The resizing of the list is done by creating another list with a larger size, copying over the values from the old list to the new list, and swapping the pointers to the element arrays between the two lists. The new list is always double the size of the previous one.
 ```c
 dy_array* new_da = new_array(new_size, da->type);
 ... //Copy over the elements to the new array
@@ -39,7 +42,8 @@ delete_dy(new_da);
 ```
 
 ## Not Implemented(yet):
-- Remove does not return the result
+- Remove does not return the result.
+- The list does not resize down when elements are removed.
 
 ## Usage
 A test function can be found in the source directory. To execute the test file, run the following in the root directory of the repository:
