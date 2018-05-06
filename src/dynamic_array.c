@@ -21,7 +21,7 @@ static dy_array* new_array(int base_size, Type value_type) {
     da->type = value_type;
     da->count = 0;
 
-    da->arr = calloc((size_t)da->size, sizeof(element*));
+    da->arr = calloc((size_t)da->size+1, sizeof(element*));
 
     return da;
 }
@@ -81,14 +81,44 @@ static void dy_size_up(dy_array* da) {
 
 
 void dy_append(dy_array* da, const void* c) {
+    dy_insert(da, c, da->count);
+}
+
+
+void dy_insert(dy_array* da, const void* c, int index) {
+    if (index > da->count) {
+        puts("Out of bounds exception");
+        return;
+    }
+
     if (da->count >= da->size) {
         dy_size_up(da);
     }
     element* el = new_element(c, da->type);
-    da->arr[da->count] = el;
+    for (int i = da->count; i >= index; i--) {
+        da->arr[i+1] = da->arr[i];
+    }
+    da->arr[index] = el;
     da->count++;
 }
 
+
+void dy_remove(dy_array* da, const int index) {
+    if (index > da->count) {
+        puts("Out of bounds exception");
+        return;
+    }
+    delete_element(da->arr[index], da->type);
+    for (int i = index+1; i <= da->count; i++) {
+        da->arr[i-1] = da->arr[i];
+    }
+    da->count--;
+}
+
+
+void dy_pop(dy_array* da) {
+    dy_remove(da, da->count-1);
+}
 
 
 void* dy_get(dy_array* da, const int index) {

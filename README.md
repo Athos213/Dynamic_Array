@@ -39,8 +39,7 @@ delete_dy(new_da);
 ```
 
 ## Not Implemented(yet):
-- Inserting in the middle
-- Removing from the middle
+- Remove does not return the result
 
 ## Usage
 A test function can be found in the source directory. To execute the test file, run the following in the root directory of the repository:
