@@ -8,7 +8,7 @@ The dynamic array uses a union and an enumeration to handle both types of input:
 //Determines the type the list supports
 typedef enum Type {INTEGER, STRING} Type;
 
-//The elemnts of the list could either be integers or strings
+//The elements of the list could either be integers or strings
 typedef union element {
     char** string;
     int integer;
