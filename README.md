@@ -42,7 +42,6 @@ delete_dy(new_da);
 ```
 
 ## Not Implemented(yet):
-- Remove does not return the result.
 - The list does not resize down when elements are removed.
 
 ## Usage

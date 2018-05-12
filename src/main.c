@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
         char str[16] = {"value"};
         sprintf(buffer, "%d", i);
         dy_append(dy, strcat(str, buffer));
-        printf("%s\n", dy_get(dy, i-1));
+        printf("%s\n", (char*)dy_get(dy, i-1));
     }
     puts("\nDynamic array of integers:");
 
@@ -22,7 +22,13 @@ int main(int argc, char** argv) {
         int* num = dy_get(da, i-1);
         printf("%d\n", *num);
     }
-    printf("%d\n", dy->count);
+    puts("\nRemoved values from both lists:");
+    int* removed_int = dy_remove(da, 1);
+    printf("%d\n", *removed_int);
+    char* removed_string = dy_remove(dy, 1);
+    printf("%s\n", removed_string);
+    free(removed_string);
+    free(removed_int);
     delete_dy(dy);
     delete_dy(da);
 }

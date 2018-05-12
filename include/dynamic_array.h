@@ -5,7 +5,7 @@
 typedef enum Type {INTEGER, STRING} Type;
 
 typedef union element {
-    char** string;
+    char* string;
     int integer;
 } element;
 
@@ -24,9 +24,9 @@ void dy_append(dy_array* da, const void* c);
 
 void dy_insert(dy_array* da, const void* c, int index);
 
-void dy_remove(dy_array* da, int index);
+void* dy_remove(dy_array* da, int index);
 
-void dy_pop(dy_array* da);
+void* dy_pop(dy_array* da);
 
 void* dy_get(dy_array* da, const int index);
 

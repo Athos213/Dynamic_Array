@@ -66,7 +66,7 @@ static void dy_resize(dy_array* da, int new_size) {
     new_da->size = da->size;
     da->size = temp_size;
 
-    const element** temp_arr = new_da->arr;
+    element** temp_arr = new_da->arr;
     new_da->arr = da->arr;
     da->arr = temp_arr;
 
@@ -103,33 +103,46 @@ void dy_insert(dy_array* da, const void* c, int index) {
 }
 
 
-void dy_remove(dy_array* da, const int index) {
+void* dy_remove(dy_array* da, const int index) {
     if (index > da->count) {
         puts("Out of bounds exception");
-        return;
+        return NULL;
+    }
+    void* ret;
+    int temp;
+    switch(da->type) {
+        case INTEGER:
+            temp = da->arr[index]->integer;
+            ret = malloc(sizeof(int));
+            *((int*)ret) = temp;
+            break;
+        case STRING:
+            ret = strdup(da->arr[index]->string);
+            break;
     }
     delete_element(da->arr[index], da->type);
     for (int i = index+1; i <= da->count; i++) {
         da->arr[i-1] = da->arr[i];
     }
     da->count--;
+    return ret;
 }
 
 
-void dy_pop(dy_array* da) {
-    dy_remove(da, da->count-1);
+void* dy_pop(dy_array* da) {
+    return dy_remove(da, da->count-1);
 }
 
 
 void* dy_get(dy_array* da, const int index) {
     if (index > da->count) {
         puts("Out of bounds exception");
-        return 1;
+        return NULL;
     }
     switch(da->type) {
         case INTEGER:
             return &(da->arr[index]->integer);
         case STRING:
-            return (char*)da->arr[index]->string;
+            return da->arr[index]->string;
     }
 }
